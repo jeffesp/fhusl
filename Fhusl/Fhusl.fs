@@ -1,6 +1,6 @@
 ﻿namespace Fhusl
 
-module Fhusl = 
+module Convert = 
     open System
 
     let m = [|
@@ -98,7 +98,7 @@ module Fhusl =
         else
             (c / 12.92)
 
-    // this method took a bit of work to figure out its indent and return a triple
+    // this method took a bit of work to figure out its intent to return a triple
     let rgb_prepare triple =
         let validate (ch:float) =
             let ch2 = Math.Round(ch, 3)
