@@ -37,15 +37,16 @@ module Fhusl =
             let top2 = (838422.0 * m3 + 769860.0 * m2 + 731718.0 * m1) * L * sub2 - 769860.0 * float(t) * L
             let bottom = (632260.0 * m3 - 126452.0 * m2) * sub2 + 126452.0 * float(t)
             (top1 / bottom, top2 / bottom)
-        )) |> Array.collect (fun elem -> elem)
+        )) |> Array.collect (fun elem -> elem) // took a while to get right Array.map constructs and find Array.collect
 
 
-    let intersect_line_line (line1, line2) = 
-        (snd line1 - snd line2) / (fst line2 - fst line1)
 
-    let distance_from_pole point =
-        Math.Sqrt(Math.Pow(fst point, 2.0) + Math.Pow(snd point, 2.0))
+    // had problems getting the right signature on this one - had used fst and snd with only two args for a while
+    let intersect_line_line ((x1,y1), (x2,y2)) =
+        (y1 - y2) / (x2 - x1)
 
+    let distance_from_pole (x,y) =
+        Math.Sqrt(Math.Pow(x, 2.0) + Math.Pow(y, 2.0))
 
     let length_of_ray_until_intersect (theta, line) =
         let m1, b1 = line
@@ -97,6 +98,7 @@ module Fhusl =
         else
             (c / 12.92)
 
+    // this method took a bit of work to figure out its indent and return a triple
     let rgb_prepare triple =
         let validate (ch:float) =
             let ch2 = Math.Round(ch, 3)
@@ -123,11 +125,11 @@ module Fhusl =
             else
                 str
         let hex2 = remove_leading_slash hex
-        let r = float(Convert.ToByte(hex2.[0..2], 16)) / 255.0
-        let g = float(Convert.ToByte(hex2.[2..4], 16)) / 255.0
-        let b = float(Convert.ToByte(hex2.[4..6], 16)) / 255.0
+        // had a proble with wrong indicies here
+        let r = float(Convert.ToByte(hex2.[0..1], 16)) / 255.0
+        let g = float(Convert.ToByte(hex2.[2..3], 16)) / 255.0
+        let b = float(Convert.ToByte(hex2.[4..5], 16)) / 255.0
         (r, g, b)
-
 
     let rgb_to_hex triple =
         let r, g, b = rgb_prepare triple
@@ -145,7 +147,6 @@ module Fhusl =
         let rgbl = trip_to_array triple |> Array.map to_linear 
         let res = m_inv |> Array.map (fun ms -> dot_product (ms) rgbl)
         (res.[0], res.[1], res.[2])
-
 
     let xyz_to_luv triple =
         let X, Y, Z = triple
@@ -180,7 +181,6 @@ module Fhusl =
 
             (X, Y, Z)
 
-
     let luv_to_lch triple =
         let L, U, V = triple
 
@@ -193,7 +193,6 @@ module Fhusl =
         else
             (L, C, H)
 
-
     let lch_to_luv triple =
         let L, C, H = triple
 
@@ -202,7 +201,6 @@ module Fhusl =
         let V = (Math.Sin(Hrad) * C)
 
         (L, U, V)
-
 
     let husl_to_lch(triple)=
         let H, S, L = triple
@@ -216,7 +214,6 @@ module Fhusl =
             let C = mx / 100.0 * S
             (L, C, H)
 
-
     let lch_to_husl triple =
         let L, C, H = triple
 
@@ -228,7 +225,6 @@ module Fhusl =
             let mx = max_chroma_for_LH L H
             let S = C / mx * 100.0
             (H, S, L)
-
 
     let huslp_to_lch triple =
         let H, S, L = triple

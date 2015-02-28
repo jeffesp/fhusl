@@ -5,4 +5,7 @@
 open Fhusl
 
 Fhusl.rgb_to_husl(0.15,0.15,0.85)
+Fhusl.hex_to_rgb("#333333")
+Fhusl.hex_to_rgb("#FFFFFF")
+
 
