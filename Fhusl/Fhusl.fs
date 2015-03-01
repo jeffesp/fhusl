@@ -251,33 +251,33 @@ module Convert =
             (H, S, L)
 
     // public interface
-    let lch_to_rgb (l, c, h) =
+    let LCHToRGB (l, c, h) =
         xyz_to_rgb(luv_to_xyz(lch_to_luv(l, c, h)))
 
-    let rgb_to_lch (r, g, b) =
+    let RGBToLCH (r, g, b) =
         luv_to_lch(xyz_to_luv(rgb_to_xyz(r, g, b)))
 
-    let husl_to_rgb (h, s, l) =
-        lch_to_rgb(husl_to_lch(h, s, l))
+    let HUSLToRGB (h, s, l) =
+        LCHToRGB(husl_to_lch(h, s, l))
 
-    let husl_to_hex (h, s, l) =
-        rgb_to_hex(husl_to_rgb(h, s, l))
+    let HUSLToHex (h, s, l) =
+        rgb_to_hex(HUSLToRGB(h, s, l))
 
-    let rgb_to_husl (r, g, b) =
-        lch_to_husl(rgb_to_lch(r, g, b))
+    let RGBToHUSL (r, g, b) =
+        lch_to_husl(RGBToLCH(r, g, b))
 
-    let hex_to_husl hex =
-        rgb_to_husl(hex_to_rgb(hex))
+    let HexToHUSL hex =
+        RGBToHUSL(hex_to_rgb(hex))
 
-    let huslp_to_rgb (h, s, l) =
-        lch_to_rgb(huslp_to_lch(h, s, l))
+    let HUSLPToRGB (h, s, l) =
+        LCHToRGB(huslp_to_lch(h, s, l))
 
-    let huslp_to_hex (h, s, l) =
-        rgb_to_hex(huslp_to_rgb(h, s, l))
+    let HUSLPToHex (h, s, l) =
+        rgb_to_hex(HUSLPToRGB(h, s, l))
 
-    let rgb_to_huslp (r, g, b)=
-        lch_to_huslp(rgb_to_lch(r, g, b))
+    let RGBToHUSLP (r, g, b)=
+        lch_to_huslp(RGBToLCH(r, g, b))
 
-    let hex_to_huslp hex =
-        rgb_to_huslp(hex_to_rgb(hex))
+    let HexToHUSLP hex =
+        RGBToHUSLP(hex_to_rgb(hex))
 

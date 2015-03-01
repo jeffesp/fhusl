@@ -1,12 +1,12 @@
 ﻿namespace Fhusl
 module Convert =
-    val lch_to_rgb : float * float * float -> float * float * float
-    val rgb_to_lch : float * float * float -> float * float * float
-    val husl_to_rgb : float * float * float -> float * float * float
-    val husl_to_hex : float * float * float -> string
-    val rgb_to_husl : float * float * float -> float * float * float
-    val hex_to_husl : string -> float * float * float
-    val huslp_to_rgb : float * float * float -> float * float * float
-    val huslp_to_hex : float * float * float -> string
-    val rgb_to_huslp : float * float * float -> float * float * float
-    val hex_to_huslp : string -> float * float * float
+    val LCHToRGB : float * float * float -> float * float * float
+    val RGBToLCH : float * float * float -> float * float * float
+    val HUSLToRGB : float * float * float -> float * float * float
+    val HUSLToHex : float * float * float -> string
+    val RGBToHUSL : float * float * float -> float * float * float
+    val HexToHUSL : string -> float * float * float
+    val HUSLPToRGB : float * float * float -> float * float * float
+    val HUSLPToHex : float * float * float -> string
+    val RGBToHUSLP : float * float * float -> float * float * float
+    val HexToHUSLP : string -> float * float * float
